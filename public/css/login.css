@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+#form{
+	padding:10px;
+	text-align:center;
+	background-color:#FFF;
+	margin:100px auto;
+	width:500px;
+	border-radius:10px;
+	-webkit-box-shadow:2px 0px 6px #555; /* Safari & Chrome */
+  	-moz-box-shadow:2px 0px 6px #555;   /* Firefox */
+  	box-shadow:2px 0px 6px #555;
+}
+#form img{
+	width:300px;
+}
+form{
+	padding:10px;
+	border-top: double 5px #DDD;
+	margin-top:20px;
+}
+form li{
+	list-style:none;
+	padding:5px;
+}
+form li label{
+	color:#888;
+	font-weight:bold;
+	float:left;
+	width:80px;
+	padding-top:5px;
+}
+form li input[type=text], form li input[type=password]{
+	width:210px;
+}
+form li:not(:last-child){
+	text-align:left;
+}
+form li:last-child{
+	border-top: double 5px #DDD;
+	padding-top:10px;
+	margin-top:10px;
+	margin-left:-10px;
+	margin-right:-10px;
+}
+#salah{
+	padding:5px;
+	background-color:#FFC1C1;
+	color:#666;
+	text-align:center;
+	margin-top:5px;
+	display:none;
+}
