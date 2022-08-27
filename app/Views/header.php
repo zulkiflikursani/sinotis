@@ -53,10 +53,10 @@
 
 
     <!-- botstrap material -->
-    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>/bs/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
     <!-- <link href="bs/css/bootstrap-icons.css" rel="stylesheet"> -->
-    <link href="css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"/> -->
@@ -65,8 +65,8 @@
 
     <!--begin:: Global Mandatory Vendors -->
 
-    <link rel="stylesheet" href="css/all.css" type="text/css" />
-    <link rel="stylesheet" href="css/headfoot.css" type="text/css" />
+    <link rel="stylesheet" href="<?= base_url()?>/css/all.css" type="text/css" />
+    <link rel="stylesheet" href="<?= base_url()?>/css/headfoot.css" type="text/css" />
 
     <!--end:: Global Mandatory Vendors -->
 
@@ -85,7 +85,7 @@
 <header>
     <div class="navigasi">
         <div class="left-logo">
-            <img id="logo" src="img/logo.png" />
+            <img id="logo" src="<?= base_url()?>/img/logo.png" />
 
         </div>
         <div class="text-logo">
@@ -154,15 +154,19 @@
             //echo '<li class="m-menu__item  m-menu__item--submenu m-menu__item--open" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="'.$a.'" class="m-menu__link m-menu__toggle m-menu__item--open"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">'.$isimenu.'</span><i
             //														 class="m-menu__ver-arrow la la-angle-right"></i></a>
             //												</li>';
-            echo "<a href=" . $a . "><li class='pilih'><img class='icon-menu' src='img/" . $menu . ".png' alt=''>$isimenu</li></a>";
-        } else {
-            echo "<a href=" . $a . "><li> <img class='icon-menu' src='img/" . $menu . ".png' alt=''>$isimenu</li></a>";
-            /*
-			echo '<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="'.$a.'" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">'.$isimenu.'</span><i
-																	 class="m-menu__ver-arrow la la-angle-right"></i></a>
-															</li>';
-			*/
-        };
+            echo "<a href=" . $a . "><li class='pilih'><img class='icon-menu' src='".base_url()."/img/" . $menu .
+    ".png' alt=''>$isimenu</li></a>";
+    } else {
+    echo "<a href=" . $a . ">
+        <li> <img class='icon-menu' src='".base_url()."/img/" . $menu . ".png' alt=''>$isimenu</li>
+    </a>";
+    /*
+    echo '<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
+            href="'.$a.'" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span
+                class="m-menu__link-text">'.$isimenu.'</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+    </li>';
+    */
+    };
     }
     ?>
 

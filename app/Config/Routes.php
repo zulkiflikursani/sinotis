@@ -41,13 +41,16 @@ $routes->get('/Manajemenuser', 'ManajemenUser::index');
 $routes->get('/Jenisrapat', 'Jenisrapat::index');
 $routes->get('/Undanganrapat', 'UndanganRapat::index');
 $routes->get('/tambahrapat', 'UndanganRapat::tambahrapat');
-$routes->get('/editrapat', 'UndanganRapat::editrapat');
+$routes->get('/editrapat/(:any)', 'UndanganRapat::editrapat/$1');
 $routes->get('/Datarapat', 'Datarapat::index');
 $routes->get('/detailrapat', 'Datarapat::detailrapat');
 $routes->get('/Main', 'Main::index');
 $routes->post('/Main', 'Main::index');
 $routes->post('/Manajemenuser/addUser', 'ManajemenUser::addUser');
 $routes->post('/Manajemenuser/udpateUser', 'ManajemenUser::udpateUser');
+$routes->post('/Jenisrapat/addRapat', 'Jenisrapat::addRapat');
+$routes->post('/Jenisrapat/editRapat', 'Jenisrapat::editRapat');
+$routes->post('/UndanganRapat/addUndangan', 'UndanganRapat::addUndangan');
 $routes->get('/Logout', 'Main::logout');
 
 /*

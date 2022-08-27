@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body " style="text-align: center;">
-                <img src="img/checklist-icon.png" alt="" height="80px">
+                <img src="<?= base_url()?>/img/checklist-icon.png" alt="" height="80px">
                 <p id='message'>Modal body text goes here.</p>
             </div>
             <div class="modal-footer align-items-center justify-content-center">
