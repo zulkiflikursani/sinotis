@@ -4,34 +4,34 @@
 // $userid = session()->get("user_id");
 // $adminmodal = new admin();
 // if($pt != "all"){
-// 	$statususer = $adminmodal->check_statususer($userid);
-// 	$menu = array();
-// 	//array("Akun","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting");
+//     $statususer = $adminmodal->check_statususer($userid);
+//     $menu = array();
+//     //array("Akun","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting");
 
-// 	if(session()->get("lvl_user") == "1")
-// 	{
-// 		$menu =array("Akun","Setting_Laporan","Tutup_Buku","Saldo_Awal","Anggaran_Awal","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting","Buku_Besar","Laporan_Keuangan_Deret","Laporan_Keuangan","Laporan_Perbandingan");
+//     if(session()->get("lvl_user") == "1")
+//     {
+//         $menu =array("Akun","Setting_Laporan","Tutup_Buku","Saldo_Awal","Anggaran_Awal","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting","Buku_Besar","Laporan_Keuangan_Deret","Laporan_Keuangan","Laporan_Perbandingan");
 
-// 	}else{
-// 		if($statususer!= false)
-// 		{
-// 			foreach($statususer as $field)
-// 			{
-// 				if($field->agrawl == "1"){array_push($menu,"Saldo_Awal");};
-// 				if($field->km == "1"){array_push($menu,"Kas_Masuk");};
-// 				if($field->kk == "1"){array_push($menu,"Kas_Keluar");};
-// 				if($field->bm == "1"){array_push($menu,"Bank_Masuk");};
-// 				if($field->bk == "1"){array_push($menu,"Bank_Keluar");};
-// 				if($field->um == "1"){array_push($menu,"Jurnal_umum");};
-// 				if($field->lap == "1"){array_push($menu,"Laporan_Keuangan");};
+//     }else{
+//         if($statususer!= false)
+//         {
+//             foreach($statususer as $field)
+//             {
+//                 if($field->agrawl == "1"){array_push($menu,"Saldo_Awal");};
+//                 if($field->km == "1"){array_push($menu,"Kas_Masuk");};
+//                 if($field->kk == "1"){array_push($menu,"Kas_Keluar");};
+//                 if($field->bm == "1"){array_push($menu,"Bank_Masuk");};
+//                 if($field->bk == "1"){array_push($menu,"Bank_Keluar");};
+//                 if($field->um == "1"){array_push($menu,"Jurnal_umum");};
+//                 if($field->lap == "1"){array_push($menu,"Laporan_Keuangan");};
 
-// 			}
-// 		}
-// 	}
+//             }
+//         }
+//     }
 // }
 // else
 // {
-// 	$menu =array("Akun","Setting_Laporan","Tutup_Buku","Saldo_Awal","Anggaran_Awal","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting","Buku_Besar","Laporan_Keuangan_Deret","Laporan_Keuangan","Laporan_Perbandingan","Konsolidasi");
+//     $menu =array("Akun","Setting_Laporan","Tutup_Buku","Saldo_Awal","Anggaran_Awal","Kas_Masuk", "Kas_Keluar","Bank_Masuk","Bank_Keluar","Jurnal_Umum","Setting","Buku_Besar","Laporan_Keuangan_Deret","Laporan_Keuangan","Laporan_Perbandingan","Konsolidasi");
 // }
 // $pmenu = $currentmenu;
 
@@ -42,7 +42,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title><?= $title ?></title>
+    <title><?=$title?></title>
     <meta name="description" content="Latest updates and statistic charts">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -53,10 +53,10 @@
 
 
     <!-- botstrap material -->
-    <link href="<?= base_url()?>/bs/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>/bs/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
     <!-- <link href="bs/css/bootstrap-icons.css" rel="stylesheet"> -->
-    <link href="<?= base_url()?>/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"/> -->
@@ -65,8 +65,8 @@
 
     <!--begin:: Global Mandatory Vendors -->
 
-    <link rel="stylesheet" href="<?= base_url()?>/css/all.css" type="text/css" />
-    <link rel="stylesheet" href="<?= base_url()?>/css/headfoot.css" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>/css/all.css" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>/css/headfoot.css" type="text/css" />
 
     <!--end:: Global Mandatory Vendors -->
 
@@ -77,7 +77,7 @@
 
 <!-- begin::Body -->
 <!--
-	
+
 -->
 
 
@@ -85,7 +85,7 @@
 <header>
     <div class="navigasi">
         <div class="left-logo">
-            <img id="logo" src="<?= base_url()?>/img/logo.png" />
+            <img id="logo" src="<?=base_url()?>/img/logo.png" />
 
         </div>
         <div class="text-logo">
@@ -93,9 +93,9 @@
         </div>
         <div class="topmenu">
             <?php
-            $a = tanggal_indonesia(date("Y-m-d "));
-            echo "<p>=  " . $a . "&nbsp;</p><p id='clock'></p>";
-            ?>
+$a = tanggal_indonesia(date("Y-m-d "));
+echo "<p>=  " . $a . "&nbsp;</p><p id='clock'></p>";
+?>
         </div>
         <div class="logo">
             <button type="button" class="icon-button">
@@ -143,32 +143,33 @@
 
 
     <?php
-    $menu = array("Home", "Manajemen_User", "Jenis_Rapat", "Undangan_Rapat", "Data_Rapat", "Logout");
-    foreach ($menu as $menu) {
+$menu = array("Home", "Manajemen_User", "Ruang_Rapat", "Undangan_Rapat", "Data_Rapat", "Logout");
+foreach ($menu as $menu) {
 
-        $isimenu = str_replace("_", " ", $menu);
-        $menuloc = ucfirst(strtolower($menu));
-        $loc = str_replace("_", "", $menuloc);
-        $a = base_url() . "/" . $loc;
-        if ($menu == $pmenu) {
-            //echo '<li class="m-menu__item  m-menu__item--submenu m-menu__item--open" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="'.$a.'" class="m-menu__link m-menu__toggle m-menu__item--open"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">'.$isimenu.'</span><i
-            //														 class="m-menu__ver-arrow la la-angle-right"></i></a>
-            //												</li>';
-            echo "<a href=" . $a . "><li class='pilih'><img class='icon-menu' src='".base_url()."/img/" . $menu .
-    ".png' alt=''>$isimenu</li></a>";
+    $isimenu = str_replace("_", " ", $menu);
+    $menuloc = ucfirst(strtolower($menu));
+    $loc = str_replace("_", "", $menuloc);
+    $a = base_url() . "/" . $loc;
+    if ($menu == $pmenu) {
+        //echo '<li class="m-menu__item  m-menu__item--submenu m-menu__item--open" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="'.$a.'" class="m-menu__link m-menu__toggle m-menu__item--open"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">'.$isimenu.'</span><i
+        //                                                         class="m-menu__ver-arrow la la-angle-right"></i></a>
+        //                                                </li>';
+        echo "<a href=" . $a . "><li class='pilih'><img class='icon-menu' src='" . base_url() . "/img/" . $menu .
+            ".png' alt=''>$isimenu</li></a>";
     } else {
-    echo "<a href=" . $a . ">
-        <li> <img class='icon-menu' src='".base_url()."/img/" . $menu . ".png' alt=''>$isimenu</li>
+        echo "<a href=" . $a . ">
+        <li> <img class='icon-menu' src='" . base_url() . "/img/" . $menu . ".png' alt=''>$isimenu</li>
     </a>";
-    /*
+        /*
     echo '<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
-            href="'.$a.'" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span
-                class="m-menu__link-text">'.$isimenu.'</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+    href="'.$a.'" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span
+    class="m-menu__link-text">'.$isimenu.'</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
     </li>';
-    */
-    };
+     */
     }
-    ?>
+    ;
+}
+?>
 
 
 
@@ -214,31 +215,29 @@
         .catch(console.error);
     </script>
     <?php
-    function tanggal_indonesia($tanggal)
-    {
-        $bulan = array(
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
+function tanggal_indonesia($tanggal)
+{
+    $bulan = array(
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember',
+    );
 
-        $pecahkan = explode(' ', $tanggal);
-        //2022-06-24 12:24:08pm
-        $pecahantanggal = explode('-', $pecahkan[0]);
-        $pecahanjam = $pecahkan[1];
+    $pecahkan = explode(' ', $tanggal);
+    //2022-06-24 12:24:08pm
+    $pecahantanggal = explode('-', $pecahkan[0]);
+    $pecahanjam = $pecahkan[1];
 
+    return $pecahantanggal[2] . ' ' . $bulan[(int) $pecahantanggal[1]] . ' ' . $pecahantanggal[0] . ' ' . $pecahanjam;
+}
 
-        return $pecahantanggal[2] . ' ' . $bulan[(int)$pecahantanggal[1]] . ' ' . $pecahantanggal[0] . ' ' . $pecahanjam;
-    }
-
-
-    ?>
+?>

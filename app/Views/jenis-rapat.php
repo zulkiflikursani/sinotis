@@ -2,17 +2,18 @@
 include "header.php";
 ?>
 <div clas='row'>
-    <h3>Jenis Rapat</h3>
+    <h3>Ruang Rapat</h3>
 </div>
 <div class="row">
     <div class="col-md-11 box-background">
-        <a data-bs-toggle="modal" data-bs-target="#modalTambahRapat"><button class='btn btn-primary mb-3'>Tambah Jenis
+        <a data-bs-toggle="modal" data-bs-target="#modalTambahRapat"><button class='btn btn-primary mb-3'>Tambah
+                Ruangan
                 Rapat</button></a>
         <table class='cell-border' id='tableJenisRapat'>
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Jenis Rapat</th>
+                    <th>Ruang Rapat</th>
                     <th>Status</th>
                     <th>Tanggal</th>
                     <th>Action</th>
@@ -20,26 +21,26 @@ include "header.php";
             </thead>
             <tbody>
                 <?php
-        foreach ($jenisRapat as $data) {
-          if ($data['status'] == '1') {
-            $status = "Aktif";
-          } else {
-            $status = "Tidak Aktif";
-          }
-        ?>
+foreach ($jenisRapat as $data) {
+    if ($data['status'] == '1') {
+        $status = "Aktif";
+    } else {
+        $status = "Tidak Aktif";
+    }
+    ?>
                 <tr>
-                    <td for='id'><?= $data['id'] ?></td>
-                    <td for='jenisRapat'><?= $data['jenis_rapat'] ?></td>
-                    <td for='status' sts='<?= $data['status'] ?>'><?= $status ?></td>
-                    <td><?= $data['update_at'] ?></td>
+                    <td for='id'><?=$data['id']?></td>
+                    <td for='jenisRapat'><?=$data['jenis_rapat']?></td>
+                    <td for='status' sts='<?=$data['status']?>'><?=$status?></td>
+                    <td><?=$data['update_at']?></td>
                     <td><a class='btn btn-sm btn-secondary' onclick="getThis($(this))" data-bs-toggle="modal"
                             data-bs-target="#modalEditRapat"><i class="bi bi-pencil"></i> Edit </a></td>
 
                 </tr>
 
                 <?php
-        }
-        ?>
+}
+?>
 
             </tbody>
         </table>
@@ -53,7 +54,7 @@ include "header.php";
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex justify-content-center w-100">
-                    <h5 class="modal-title" id="modalTambahRapatLabel">Tambah Jenis Rapat</h5>
+                    <h5 class="modal-title" id="modalTambahRapatLabel">Tambah Ruang Rapat</h5>
                 </div>
                 <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -62,7 +63,7 @@ include "header.php";
             <form ction="" id='form-addRapat'>
                 <div class="modal-body">
                     <div class="row col-12">
-                        <label for="jenisrapat" class="col-form-label">Jenis Rapat</label>
+                        <label for="jenisrapat" class="col-form-label">Ruang Rapat</label>
                         <input type="text" class="form-control" name='jenisrapat' id="jenisrapat">
                     </div>
                 </div>
@@ -93,7 +94,7 @@ include "header.php";
 
                 <div class="modal-body">
                     <div class="row col-10 m-4">
-                        <label for="inputNama" class="col-form-label">Jenis Rapat</label>
+                        <label for="inputNama" class="col-form-label">Ruang Rapat</label>
                         <input type="text" class="form-control" id="ejenisrapat" name="ejenisrapat">
                     </div>
                     <div class="row col-10 m-4">
@@ -163,7 +164,7 @@ function selectElement(id, valueToSelect) {
 }
 
 function addRapat() {
-    url = "<?php echo base_url('Jenisrapat/addRapat') ?>"
+    url = "<?php echo base_url('Ruangrapat/addRapat') ?>"
     $.ajax({
         url: url,
         type: "POST",
@@ -174,7 +175,7 @@ function addRapat() {
                 document.getElementById("form-addRapat").reset();
                 $('#modalTambahRapat').modal('hide')
 
-                $('#message').html('Tambah Jenis Rapat Sukses')
+                $('#message').html('Tambah Ruang Rapat Sukses')
                 $('.modal-notif').modal('show')
 
             }
@@ -188,7 +189,7 @@ function addRapat() {
 }
 
 function editRapat() {
-    url = "<?php echo base_url('Jenisrapat/editRapat') ?>"
+    url = "<?php echo base_url('Ruangrapat/editRapat') ?>"
     $.ajax({
         url: url,
         type: "POST",
