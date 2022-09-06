@@ -46,6 +46,7 @@ $routes->get('/editrapat/(:any)', 'UndanganRapat::editrapat/$1');
 $routes->get('/Datarapat', 'Datarapat::index');
 $routes->get('/detailrapat', 'Datarapat::detailrapat');
 $routes->get('/Main', 'Main::index');
+$routes->get('/googledocview', 'GoogleDocView::index');
 $routes->post('/Main', 'Main::index');
 $routes->post('/Manajemenuser/addUser', 'ManajemenUser::addUser');
 $routes->post('/Manajemenuser/udpateUser', 'ManajemenUser::udpateUser');

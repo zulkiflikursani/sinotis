@@ -63,6 +63,11 @@ class TbUndangan extends Migration
                 'type' => 'time',
                 
             ],
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+                
+            ],
             'update_at  DATETIME DEFAULT CURRENT_TIMESTAMP'
 
 

@@ -81,7 +81,7 @@ include "header.php";
         </div>
         <div class=" row col-11 mb-2">
             <div class="d-flex justify-content-center">
-                <a href="<?=base_url("files/".$namafile)?>" target=" _blank"><input type="button"
+                <a href="<?=base_url("files/".$namafile.".docx")?>" target=" _blank"><input type="button"
                         onclick="udpateUndangan()" class="btn btn-primary mt-4 " value="Cek Undangan "></a>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <input type="button" onclick="udpateUndangan()" class="btn btn-primary mt-4 " value="Simpan Undangan ">

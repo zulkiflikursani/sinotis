@@ -23,12 +23,20 @@ include "header.php";
                 if(isset($undangan)){
                     $i= 1;
                     foreach($undangan as $isi){
+                        if($isi['status']==2){
+                            $status='Selesa';
+                        }else if($isi['status']==1){
+                            $status='Aktif';
+                        }else{
+                            $status='Belum diverifikasi';
+
+                        }
                         ?>
 
                 <tr>
                     <td for="nomor" nmr='<?= $isi['nomor']?>'><?= $i?></td>
-                    <td for="jenis-rapat"><?= $isi['klasifikasi']?></td>
-                    <td for='status'><?= "aktif" ?></td>
+                    <td for="perihal"><?= $isi['perihal']?></td>
+                    <td for='status'><?= $status ?></td>
                     <td for='tgl'><?= $isi['tanggal']?></td>
                     <td><a class='btn btn-sm btn-secondary' href="editrapat/<?= $isi['id']?>"><i
                                 class="bi bi-pencil"></i> Edit </a></td>

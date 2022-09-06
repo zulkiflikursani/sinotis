@@ -80,7 +80,7 @@ include "header.php";
                     if(isset($users)){
                         foreach($users as $a){
                     ?>
-                    <option value="<?= $a['nip'];?>"><?= $a['nip']." ".$a['user_name'] ?></option>
+                    <option value="<?= $a['nip'];?>"><?= $a['nip']." ".$a['nama_lengkap'] ?></option>
                     <?php
                         }
                     }
@@ -95,10 +95,10 @@ include "header.php";
                 <textarea class="form-control" id="isi" name="isi" rows="3"></textarea>
             </div>
         </div>
-        <div class=" row col-11 mb-2 form-check">
+        <!-- <div class=" row col-11 mb-2 form-check">
             <label for="fileLamp" class="col-4 col-form-label">Masukkan Lampiran</label>
             <input type="file" id='fileLamp' name="fileLamp" class="col-sm-4 form-control-file">
-        </div>
+        </div> -->
         <div class=" row col-11 mb-2">
             <div class="d-flex justify-content-center">
                 <input type="button" onclick="addUndangan()" class="btn btn-primary mt-4" value="Simpan Undangan ">
@@ -148,7 +148,8 @@ function addUndangan() {
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            $('#message').html('Tamabah Undangan Rapat Gagal')
+            // console.log(jqXHR)
+            $('#message').html('Tamabah Undangan Rapat Gagal2'.jqXHR)
             $('.modal-notif').modal('show')
         }
 

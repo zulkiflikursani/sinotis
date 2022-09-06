@@ -18,7 +18,7 @@ class UndanganRapat extends BaseController
             $data['valmenu'] = "dashboard";
             $data['pmenu'] = "dashboard";
             // return view('modal-contoh',$data);
-            $data['undangan'] = $UndanganModel->findAll();
+            $data['undangan'] = $UndanganModel->groupBy("nomor")->findAll();
             $data['users'] = $UserModel->findAll();
 
             return view('undangan-rapat', $data);
@@ -33,13 +33,7 @@ class UndanganRapat extends BaseController
     public function addUndangan()
     {
 
-        // $file = $this->request->getFile('fileLamp');
-        // $filename = $this->db->escapeString($this->request->getPost('nomor'));
-        // $file->move(ROOTPATH . 'public\files',$filename);
-        // $file = $this->request->getFile('fileLamp');
-
-        // $file->move("files");
-        // $namafile = $file->getName();
+ 
         
         $tanggal = $this->db->escapeString($this->request->getPost('tgl')); //2022-09-06
         $tanggalsurat= date('l',strtotime($tanggal));
@@ -67,23 +61,24 @@ class UndanganRapat extends BaseController
         $UndanganModel = new \App\Models\UndanganModel();
         $kepada = $this->request->getPost('kepada');
 
-        $filename = str_replace($this->db->escapeString($this->request->getPost('nomor')),"/","");
-        echo $filename;
+        $filename = str_replace("/","",$this->db->escapeString($this->request->getPost('nomor')));
+        
         foreach($kepada as $a){
-           
+            $nama = $this->getNama($a);
             $data = array(
                 'nomor' => $this->db->escapeString($this->request->getPost('nomor')),
                 'klasifikasi' => $this->db->escapeString($this->request->getPost('klas')),
                 'lampiran' => $this->db->escapeString($this->request->getPost('lamp')),
                 'perihal' => $this->db->escapeString($this->request->getPost('hal')),
                 'ruangan' => $this->db->escapeString($this->request->getPost('ruangan')),
-                'kepada' => $a,
+                'kepada' => $nama,
                 'namafile' => $filename.$a,
                 'isi' => $this->db->escapeString($this->request->getPost('isi')),
                 'pakaian' => $this->db->escapeString($this->request->getPost('pakaian')),
                 'tanggal' => $this->db->escapeString($this->request->getPost('tgl')),
                 'mulai' => $this->db->escapeString($this->request->getPost('mulai')),
                 'sampai' => $this->db->escapeString($this->request->getPost('sampai')),
+                'status' => 0,
 
             );
             $datasurat = array(
@@ -92,7 +87,7 @@ class UndanganRapat extends BaseController
                 'lampiran' => $this->db->escapeString($this->request->getPost('lamp')),
                 'perihal' => $this->db->escapeString($this->request->getPost('hal')),
                 'ruangan' => $this->db->escapeString($this->request->getPost('ruangan')),
-                'kepada' => $a,
+                'kepada' => $nama,
                 'hari' =>$hari,
                 'namafile' => $filename.$a,
                 'isi' => $this->db->escapeString($this->request->getPost('isi')),
@@ -111,12 +106,18 @@ class UndanganRapat extends BaseController
                 $addUndangan = $UndanganModel->insert($data);
                 $this->generate_undangan($datasurat);
     
-                echo json_encode(array("status" => true, "message" => "success"));
+                $status = "ok";
+                // echo json_encode(array("status" => true, "message" => "success"));
     
             } catch (\Exception $e) {
+                $status ='gagal';
                 echo json_encode(array("status" => false, "message" => $e->getMessage()));
                 // echo $e->getMessage();
             }
+           
+        }
+        if($status == "ok"){
+            echo json_encode(array("status" => true, "message" => "success"));
         }
     }
 
@@ -171,6 +172,17 @@ class UndanganRapat extends BaseController
         }
       }
 
+    public function getNama($id){
+        $UserModel = new \App\Models\UserModel();
+        
+        $nama  = $UserModel->where('nip', $id)->find();
+        foreach($nama as $result){
+            $results =$result['nama_lengkap'];
+        }
+
+        return $results;
+        
+    }
     // public function generate_undangan($nomorsurat,$klasifikasi,$perihal,$kepada,$isi,$ruangrapat,$alamat,$pakaian,$userkepala,$nipkepala,$update_at)
     public function generate_undangan($data)
     {
@@ -178,6 +190,7 @@ class UndanganRapat extends BaseController
         $templateProcessor->setValue('nomorsurat', $data['nomor']);
         $templateProcessor->setValue('klasifikasi', $data['klasifikasi']);
         $templateProcessor->setValue('perihal', $data['perihal']);
+        $templateProcessor->setValue('lampiran', $data['lampiran']);
         $templateProcessor->setValue('kepada', $data['kepada']);
         $templateProcessor->setValue('isi', $data['isi']);
         $templateProcessor->setValue('ruangrapat',$data['ruangan']);
