@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
             [
                 'user_name' => 'testing',
                 'email'  => 'testing@gmail.com',
+                'pangkat'  => 'pangkatnya',
+                'nip'  => '1927389127',
                 'status' => '1',
                 'level' => '1',
                 'pass' => 'admin'
@@ -20,6 +22,8 @@ class UserSeeder extends Seeder
             [
                 'user_name' => 'testing1',
                 'email'  => 'testing1@gmail.com',
+                'pangkat'  => 'pangkat 2',
+                'nip'  => '39248083',
                 'status' => '1',
                 'level' => '2',
                 'pass' => 'admin'
@@ -27,6 +31,8 @@ class UserSeeder extends Seeder
             [
                 'user_name' => 'testing2',
                 'email'  => 'testing2@gmail.com',
+                'pangkat'  => 'pangkat 3a',
+                'nip'  => '90535908309583',
                 'status' => '1',
                 'level' => '3',
                 'pass' => 'admin'

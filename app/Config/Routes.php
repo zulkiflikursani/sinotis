@@ -40,6 +40,7 @@ $routes->get('/Home', 'Home::index');
 $routes->get('/Manajemenuser', 'ManajemenUser::index');
 $routes->get('/Ruangrapat', 'Ruangrapat::index');
 $routes->get('/Undanganrapat', 'UndanganRapat::index');
+$routes->get('/Undanganrapat/generateundangan', 'UndanganRapat::generate_undangan');
 $routes->get('/tambahrapat', 'UndanganRapat::tambahrapat');
 $routes->get('/editrapat/(:any)', 'UndanganRapat::editrapat/$1');
 $routes->get('/Datarapat', 'Datarapat::index');

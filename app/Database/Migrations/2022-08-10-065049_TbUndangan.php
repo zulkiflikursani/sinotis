@@ -35,6 +35,14 @@ class TbUndangan extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
+            'ruangan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'pakaian' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
             'isi' => [
                 'type' => 'VARCHAR',
                 'constraint' => '10000'
@@ -45,6 +53,14 @@ class TbUndangan extends Migration
             ],
             'tanggal' => [
                 'type' => 'date',
+                
+            ],
+            'mulai' => [
+                'type' => 'time',
+                
+            ],
+            'sampai' => [
+                'type' => 'time',
                 
             ],
             'update_at  DATETIME DEFAULT CURRENT_TIMESTAMP'

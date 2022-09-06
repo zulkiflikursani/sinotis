@@ -9,7 +9,7 @@ class UndanganModel extends Model
     protected $table      = 'tb_undangan';
     protected $primaryKey = 'nomor';
 
-    protected $allowedFields = ['nomor', 'klasifikasi', 'lampiran','perihal','kepada','namafile','tanggal','isi'];
+    protected $allowedFields = ['nomor', 'klasifikasi', 'lampiran','ruangan','pakaian','perihal','kepada','namafile','tanggal','mulai','sampai','isi'];
 
 
     // protected $createdField  = 'created_at';

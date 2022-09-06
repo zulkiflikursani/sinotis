@@ -20,6 +20,18 @@ class User extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
+            'nama_lengkap' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'pangkat' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'nip' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'

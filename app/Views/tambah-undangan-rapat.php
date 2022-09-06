@@ -1,6 +1,13 @@
 <?php
 include "header.php";
 ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
 <div clas='row'>
     <h3>Undangan Rapat</h3>
 </div>
@@ -14,9 +21,21 @@ include "header.php";
             </div>
         </div>
         <div class="row col-11 mb-2">
-            <label for="tanggal" class="col-2 col-form-label">Tanggal Rapat</label>
-            <div class="col-sm-4">
-                <input type="date" id='tanggal' date-format="dd/mm/yyyy" name="tanggal" class="col-sm-4 form-control ">
+            <label for="tanggal" class="col-2 col-form-label-sm">Tanggal Rapat</label>
+            <div class="col-10 row ml-1 mb-2">
+                <!-- <input type="date" id='tanggal' date-format="dd/mm/yyyy" name="tanggal" class="col-sm-4 form-control "> -->
+                <div class="row col-3">
+                    <label for="" class="col-2 col-form-label">Tanggal</label>
+                    <input type="date" date-format="dd/mm/yyyy" class='form-control-sm' name="tgl" id="">
+                </div>
+                <div class="row col-2 mx-1">
+                    <label for="" class="col-2 col-form-label">Mulai</label>
+                    <input type="time" class='form-control-sm' name="mulai" id="">
+                </div>
+                <div class="row col-2 mx-1 text-start">
+                    <label for="" class="col-2 col-form-label">Sampai</label>
+                    <input type="time" class='form-control-sm' name="sampai" id="">
+                </div>
             </div>
         </div>
         <div class=" row col-11 mb-2">
@@ -38,9 +57,35 @@ include "header.php";
             </div>
         </div>
         <div class="row col-11 mb-2">
+            <label for="hal" class="col-2 col-form-label-sm">Ruangan Rapat</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm" id="hal" name="ruangan">
+            </div>
+        </div>
+        <div class="row col-11 mb-2">
+            <label for="hal" class="col-2 col-form-label-sm">Pakaian</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm" id="hal" name="pakaian">
+            </div>
+        </div>
+        <div class="row col-11 mb-2">
             <label for="kepala" class="col-2 col-form-label-sm">Kepada</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" id="kepala" name="kepada">
+                <!-- <input type="text" class="form-control form-control-sm" id="kepala" name="kepada">
+             -->
+                <select class="selectpicker" multiple aria-label="size 3 select example" multiple
+                    data-live-search="true" name="kepada[]">
+
+                    <?php 
+                    if(isset($users)){
+                        foreach($users as $a){
+                    ?>
+                    <option value="<?= $a['nip'];?>"><?= $a['nip']." ".$a['user_name'] ?></option>
+                    <?php
+                        }
+                    }
+                    ?>
+                </select>
             </div>
         </div>
 
@@ -95,15 +140,15 @@ function addUndangan() {
         success: function(data) {
             if (data['status'] == true) {
                 document.getElementById("form-undangan").reset();
-                $('#message').html('Tambah Jenis Rapat Sukses')
+                $('#message').html('Tambah Undangan Rapat Sukses')
                 $('.modal-notif').modal('show')
             } else {
-                $('#message').html('Tambah Jenis Rapat Gagak ' + data['message'])
+                $('#message').html('Tambah Undangan Rapat gagal ' + data['message'])
                 $('.modal-notif').modal('show')
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            $('#message').html('Tamabah Jenis Rapat Gagal')
+            $('#message').html('Tamabah Undangan Rapat Gagal')
             $('.modal-notif').modal('show')
         }
 
