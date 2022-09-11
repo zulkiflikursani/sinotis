@@ -48,7 +48,7 @@
 
     <!--begin::Web font -->
 
-    </script>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -135,7 +135,7 @@ echo "<p>=  " . $a . "&nbsp;</p><p id='clock'></p>";
 
 <div id="menu2" class="m-scrollable" data-scrollable="true">
     <div id="keterangan">
-        Welcome </br><?php echo session()->get("username"); ?></br>
+        Welcome </br><?php echo session()->get("nama_lengkap"); ?></br>
         <!-- <a href="<?php echo base_url() ?>/logout"> <button class="btn btn-sm btn-primary ">Log out</button></a> -->
 
     </div>
@@ -143,7 +143,7 @@ echo "<p>=  " . $a . "&nbsp;</p><p id='clock'></p>";
 
 
     <?php
-$menu = array("Home", "Manajemen_User", "Ruang_Rapat", "Undangan_Rapat", "Data_Rapat", "Logout");
+$menu = array("Home", "Manajemen_User", "Ruang_Rapat", "Undangan_Rapat", "Data_Rapat","Chat_Room","Logout");
 foreach ($menu as $menu) {
 
     $isimenu = str_replace("_", " ", $menu);
@@ -176,6 +176,7 @@ foreach ($menu as $menu) {
 </div>
 <div id="body">
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+    <script src="/js/Notification.js"></script>
     <script>
     function currentTime() {
         let date = new Date();
@@ -205,14 +206,14 @@ foreach ($menu as $menu) {
     }
     currentTime();
 
-    const beamsClient = new PusherPushNotifications.Client({
-        instanceId: 'a0c7cde1-ea5c-4616-bfbf-78fd70fbc6f8',
-    });
+    // const beamsClient = new PusherPushNotifications.Client({
+    //     instanceId: 'a0c7cde1-ea5c-4616-bfbf-78fd70fbc6f8',
+    // });
 
-    beamsClient.start()
-        .then(() => beamsClient.addDeviceInterest('hello'))
-        .then(() => console.log('Successfully registered and subscribed!'))
-        .catch(console.error);
+    // beamsClient.start()
+    //     .then(() => beamsClient.addDeviceInterest('hello'))
+    //     .then(() => console.log('Successfully registered and subscribed!'))
+    //     .catch(console.error);
     </script>
     <?php
 function tanggal_indonesia($tanggal)

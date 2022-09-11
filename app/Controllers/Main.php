@@ -73,8 +73,10 @@ class Main extends BaseController
                     foreach ($checking as $apps) {
 
                         $session_data = array(
+                            'id'   => $apps->id,
                             'email'   => $apps->email,
                             'username' => $apps->user_name,
+                            'nama_lengkap' => $apps->nama_lengkap,
                             'level' => $apps->level,
                             'status' => $apps->status,
                         );
