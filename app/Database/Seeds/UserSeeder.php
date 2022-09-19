@@ -10,34 +10,34 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'user_name' => 'testing',
-                'email'  => 'testing@gmail.com',
+                'user_name' => 'Nurul',
+                'email'  => 'Nurul@gmail.com',
                 'nama_lengkap'  => 'Nurul',
-                'pangkat'  => 'pangkatnya',
-                'nip'  => '1927389127',
+                'pangkat'  => 'Golongan C',
+                'nip'  => '123456789',
                 'status' => '1',
                 'level' => '1',
                 'pass' => 'admin'
 
             ],
             [
-                'user_name' => 'testing1',
-                'email'  => 'testing1@gmail.com',
+                'user_name' => 'NurulSekertaris',
+                'email'  => 'Nurul2@gmail.com',
                 'nama_lengkap'  => 'Nurul 2',
-                'pangkat'  => 'pangkat 2',
-                'nip'  => '39248083',
+                'pangkat'  => 'Golongan C',
+                'nip'  => '987654321',
                 'status' => '1',
                 'level' => '2',
                 'pass' => 'admin'
             ],
             [
-                'user_name' => 'testing2',
-                'email'  => 'testing2@gmail.com',
+                'user_name' => 'NurulUser',
                 'nama_lengkap'  => 'Nurul 3',
-                'pangkat'  => 'pangkat 3a',
-                'nip'  => '90535908309583',
+                'pangkat'  => 'Golongan C',
+                'email'  => 'Nurul3@gmail.com',
+                'nip'  => '321654987',
                 'status' => '1',
-                'level' => '3',
+                'level' => '5',
                 'pass' => 'admin'
             ]
         ];

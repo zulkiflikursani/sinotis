@@ -13,22 +13,22 @@ include "header.php";
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
-    <title>Ci4 WebSocket Chat</title>
+
 
 </head>
 
 <body>
     <?php
-      $uri = service('uri');
-     ?>
+    $uri = service('uri');
+    ?>
     <!-- end header -->
 
     <div class="container">
         <div class="row">
             <div class="col-12 mt-5 pt-3 pb-3 bg-white from-wrapper">
                 <div class="container">
-                    <h3>Chat Room <a href="chatroom/4"><button class="btn float-right  btn-primary">Private
-                                Chat</button></a></h3>
+                    <h3>Chat Room </h3>
+                    <p style='color:#c58749'>* Klik user untuk private chat</p>
                     <hr>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
@@ -59,9 +59,12 @@ include "header.php";
 
 
     <?php
-include "footer.php";
-?>
-
+    include "footer.php";
+    ?>
+    <script src="jquery/dist/jquery-3.5.1.js"></script>
+    <script src="bs/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
+    <script src="jquery/dist/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> -->
     <script>
     $(function() {
         scrollMsgBottom()
@@ -98,7 +101,7 @@ include "footer.php";
             } else if ('message' in data) {
 
                 if (data.status == 'public') {
-                    showNotification("(Chat Room) " + data.author, data.message, "Chatroom/  ");
+                    // showNotification("(Chat Room) " + data.author, data.message, "Chatroom/  ");
 
                     newMessage(data)
                 }
@@ -126,7 +129,7 @@ include "footer.php";
 
         html = `<div class="col-8 msg-item left-msg">
                     <div class="msg-img">
-                      <img class="img-thumbnail rounded-circle" src="/assets/img/` + imgs[msg.author] + `">
+                      <img class="img-thumbnail rounded-circle" src="/img/logo-user-chat.png">
                     </div>
                     <div class="msg-text">
                       <span class="author">` + msg.author + `</span> <span class="time">` + msg.time + `</span><br>
@@ -147,7 +150,7 @@ include "footer.php";
         var time = hour + ':' + minutes
         html = `<div class="col-8 msg-item right-msg offset-4">
                     <div class="msg-img">
-                      <img class="img-thumbnail rounded-circle" src="/assets/img/` + imgs[name] + `">
+                      <img class="img-thumbnail rounded-circle" src="/img/logo-user-chat.png">
                     </div>
                     <div class="msg-text">
                       <span class="author">Me</span> <span class="time">` + time + `</span><br>
@@ -165,7 +168,8 @@ include "footer.php";
 
         for (let index = 0; index < users.length; index++) {
             if (myId != users[index].c_user_id)
-                html += '<li class="list-group-item">' + users[index].c_name + '</li>'
+                html += '<a href="chatroom/' + users[index].c_user_id + '"><li class="list-group-item">' + users[index]
+                .c_name + '</li></a>'
         }
 
         if (html == '') {

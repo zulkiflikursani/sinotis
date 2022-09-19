@@ -76,11 +76,11 @@ include "header.php";
                 <select class="selectpicker" multiple aria-label="size 3 select example" multiple
                     data-live-search="true" name="kepada[]">
 
-                    <?php 
-                    if(isset($users)){
-                        foreach($users as $a){
+                    <?php
+                    if (isset($users)) {
+                        foreach ($users as $a) {
                     ?>
-                    <option value="<?= $a['nip'];?>"><?= $a['nip']." ".$a['nama_lengkap'] ?></option>
+                    <option value="<?= $a['nip']; ?>"><?= $a['nip'] . " " . $a['nama_lengkap'] ?></option>
                     <?php
                         }
                     }
@@ -128,6 +128,10 @@ $(document).ready(function() {
 });
 
 function addUndangan() {
+    var conn = new WebSocket('ws://localhost:8080?access_token=<?= session()->get('id') ?>');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
+    };
     url = "<?php echo base_url('UndanganRapat/addUndangan') ?>"
     var formData = new FormData($("#form-undangan")[0]);
     $.ajax({
@@ -139,6 +143,16 @@ function addUndangan() {
         contentType: false,
         success: function(data) {
             if (data['status'] == true) {
+                $.each(data['user_to_notif'], function(a, b) {
+                    var data = {
+                        msg: 'UNDANGAN RAPAT',
+                        status: "notif",
+                        send_to: b
+                    }
+
+                })
+                console.log(data);
+                conn.send(JSON.stringify(data));
                 document.getElementById("form-undangan").reset();
                 $('#message').html('Tambah Undangan Rapat Sukses')
                 $('.modal-notif').modal('show')

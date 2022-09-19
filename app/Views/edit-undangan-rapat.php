@@ -2,89 +2,145 @@
 include "header.php";
 
 ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <div clas='row'>
     <h3>Edit Undangan Rapat</h3>
-    <?php 
+    <?php
     // print_r($rapat);
-    if(isset($rapat)){
-        foreach($rapat as $isi){
+    $id = array();
+    if (isset($rapat)) {
+        $kepada = '';
+        $valuekepada = '';
+        foreach ($rapat as $isi) {
+            array_push($id, $isi['id']);
             $nomor = $isi['nomor'];
             $namafile = $isi['namafile'];
             $klasifikasi = $isi['klasifikasi'];
             $tanggal = $isi['tanggal'];
+            $mulai = date('h:i', strtotime($isi['mulai']));
+            $sampai = date('h:i', strtotime($isi['sampai']));
             $lampiran = $isi['lampiran'];
             $perihal = $isi['perihal'];
-            $kepada = $isi['kepada'];
+            $kepada = $kepada . $isi['nip'] . " " . $isi['kepada'] . ", ";
+            $valuekepada = $valuekepada  . $isi['nip'] . ",";
+            $ruangan = $isi['ruangan'];
+            $pakaian = $isi['pakaian'];
             $isi = $isi['isi'];
+
+
             // 
 
         }
     }
-        ?>
+
+    $kepada = substr($kepada, 0, -2);
+    $valuekepada = substr($valuekepada, 0, -1);
+
+    // print_r($valuekepada);
+    ?>
 </div>
 
 <div class='body'>
-    <form action="" id='form-editrapat'>
+    <form action="" id='form-undangan'>
+
         <div class="row col-11 mb-2">
+            <input type="hidden" name="id" value="<?php echo implode(",", $id) ?>">
+            <input type="hidden" class="form-control form-control-sm" id="nomor" name='nomor' value='<?= $nomor ?>'>
+
             <label for="nomor" class="col-2 col-form-label-sm">Nomor</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" id="nomor" name='nomor'
-                    value='<?= isset($nomor)? $nomor:""?>'>
+                <input type="text" class="form-control form-control-sm" id="nomor" name='nomora' value='<?= $nomor ?>'
+                    disabled=true>
             </div>
         </div>
         <div class="row col-11 mb-2">
-            <label for="tanggal" class="col-2 col-form-label">Tanggal Rapat</label>
-            <div class="col-sm-4">
-                <input type="date" id='tanggal' date-format="dd/mm/yyyy" name="tanggal" class="col-sm-4 form-control "
-                    value='<?= isset($tanggal)? $tanggal:""?>'>
+            <label for="tanggal" class="col-2 col-form-label-sm">Tanggal Rapat</label>
+            <div class="col-10 row ml-1 mb-2">
+                <!-- <input type="date" id='tanggal' date-format="dd/mm/yyyy" name="tanggal" class="col-sm-4 form-control "> -->
+                <div class="row col-3">
+                    <label for="" class="col-2 col-form-label">Tanggal</label>
+                    <input type="date" date-format="dd/mm/yyyy" class='form-control-sm' value='<?= $tanggal ?>'
+                        name="tgl" id="">
+                </div>
+                <div class="row col-2 mx-1">
+                    <label for="" class="col-2 col-form-label">Mulai</label>
+                    <input type="time" class='form-control-sm' name="mulai" id="" value='<?= $mulai ?>'>
+                </div>
+                <div class="row col-2 mx-1 text-start">
+                    <label for="" class="col-2 col-form-label">Sampai</label>
+                    <input type="time" class='form-control-sm' name="sampai" id="" value='<?= $mulai ?>'>
+                </div>
             </div>
         </div>
         <div class=" row col-11 mb-2">
             <label for="klas" class="col-2 col-form-label-sm">Klasifikasi</label>
             <div class="col-sm-7">
                 <input type="text" class="form-control form-control-sm" id="klas" name='klas'
-                    value='<?= isset($klasifikasi)? $klasifikasi:""?>'>
+                    value='<?= $klasifikasi ?>'>
             </div>
         </div>
         <div class="row col-11 mb-2">
             <label for="lamp" class="col-2 col-form-label-sm">Lampiran</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" id="lamp" name='lamp'
-                    value='<?= isset($lampiran)? $lampiran:""?>'>
+                <input type="text" class="form-control form-control-sm" id="lamp" name='lamp' value="<?= $lampiran ?>">
             </div>
         </div>
         <div class="row col-11 mb-2">
             <label for="hal" class="col-2 col-form-label-sm">Perihal</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" id="hal" name="hal"
-                    value='<?= isset($perihal)? $perihal:""?>'>
+                <input type="text" class="form-control form-control-sm" id="hal" name="hal" value="<?= $perihal ?>">
+            </div>
+        </div>
+        <div class="row col-11 mb-2">
+            <label for="hal" class="col-2 col-form-label-sm">Ruangan Rapat</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm" id="hal" name="ruangan" value="<?= $ruangan ?>">
+            </div>
+        </div>
+        <div class="row col-11 mb-2">
+            <label for="hal" class="col-2 col-form-label-sm">Pakaian</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm" id="hal" name="pakaian" value="<?= $pakaian ?>">
             </div>
         </div>
         <div class="row col-11 mb-2">
             <label for="kepala" class="col-2 col-form-label-sm">Kepada</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" id="kepala" name="kepada"
-                    value='<?= isset($kepada)? $kepada:""?>'>
+                <!-- <input type="text" class="form-control form-control-sm" id="kepala" name="kepada">
+             -->
+                <select class="selectpicker" id='kepada' multiple aria-label="size 3 select example" multiple
+                    data-live-search="true" name="kepada[]">
+
+                    <?php
+                    if (isset($users)) {
+                        foreach ($users as $a) {
+                    ?>
+                    <option value="<?= $a['nip']; ?>"><?= $a['nip'] . " " . $a['nama_lengkap'] ?></option>
+                    <?php
+                        }
+                    }
+                    ?>
+                </select>
             </div>
         </div>
 
         <div class="row col-11 mb-2">
             <label for="isi" class="col-11 col-form-label-sm">isi</label>
             <div class="col-sm-11">
-                <textarea class="form-control" id="isi" name="isi" rows="3"><?= isset($isi)? $isi:""?></textarea>
+                <textarea class="form-control" id="isi" name="isi" rows="3"><?= $isi ?></textarea>
             </div>
         </div>
-        <div class=" row col-11 mb-2 ">
-            <label for="fileLamp" class="col-2 col-form-label">Masukkan Lampiran</label>
-            <input type="file" id='fileLamp' name="fileLamp" value='' class="col-sm-4 form-control-file"><label for=""
-                c;ass='col-form-label col-3'><?= isset($namafile)? $namafile:""?></label>
-        </div>
+        <!-- <div class=" row col-11 mb-2 form-check">
+            <label for="fileLamp" class="col-4 col-form-label">Masukkan Lampiran</label>
+            <input type="file" id='fileLamp' name="fileLamp" class="col-sm-4 form-control-file">
+        </div> -->
         <div class=" row col-11 mb-2">
             <div class="d-flex justify-content-center">
-                <a href="<?=base_url("files/".$namafile.".docx")?>" target=" _blank"><input type="button"
-                        onclick="udpateUndangan()" class="btn btn-primary mt-4 " value="Cek Undangan "></a>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <input type="button" onclick="udpateUndangan()" class="btn btn-primary mt-4 " value="Simpan Undangan ">
+                <input type="button" onclick="updateUndangan()" class="btn btn-primary mt-4" value="Simpan Undangan ">
 
             </div>
         </div>
@@ -103,7 +159,65 @@ include "footer.php";
 
 <script type="text/javascript">
 $(document).ready(function() {
+    var values = "<?= $valuekepada ?>";
+    var values1 = "<?= $kepada ?>";
+    // var name = "1927389127, Nurul 2";
+    $("button").removeClass("bs-placeholder");
 
-
+    $('.filter-option-inner-inner').html(values1)
+    $('button').prop('title', values1);
+    $.each(values.split(","), function(i, e) {
+        $("#kepada option[value='" + e + "']").prop("selected", true);
+    });
 });
+
+$(function() {
+
+})
+
+function updateUndangan() {
+    var conn = new WebSocket('ws://localhost:8080?access_token=<?= session()->get('id') ?>');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
+    };
+    url = "<?php echo base_url('UndanganRapat/updateUndangan') ?>"
+    var formData = new FormData($("#form-undangan")[0]);
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        dataType: "JSON",
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            if (data['status'] == true) {
+                // var conn = new WebSocket('ws://localhost:8080?access_token=<?= session()->get('id') ?>');
+                // conn.onopen = function(e) {
+                //     console.log("Connection established!");
+                // };
+                $.each(data['user_to_notif'], function(a, b) {
+                    var data = {
+                        msg: 'UNDANGAN RAPAT',
+                        status: "notif",
+                        send_to: b
+                    }
+                    console.log(data);
+                    conn.send(JSON.stringify(data));
+                })
+                document.getElementById("form-undangan").reset();
+                $('#message').html('Tambah Undangan Rapat Sukses')
+                $('.modal-notif').modal('show')
+            } else {
+                $('#message').html('Tambah Undangan Rapat gagal ' + data['message'])
+                $('.modal-notif').modal('show')
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR)
+            $('#message').html('Tamabah Undangan Rapat Gagal2'.jqXHR)
+            $('.modal-notif').modal('show')
+        }
+
+    })
+}
 </script>

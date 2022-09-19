@@ -16,39 +16,55 @@ include "header.php";
                     <th>Mulai</th>
                     <th>Selesai</th>
                     <th>Status</th>
-                    <!-- <th>Action</th> -->
+                    <th>Notulen</th>
                     <th>View</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                
-                if(isset($undangan)){
-                    $i= 1;
-                    foreach($undangan as $isi){
-                        if($isi['status']==2){
-                            $status='Selesa';
-                        }else if($isi['status']==1){
-                            $status='Aktif';
-                        }else{
-                            $status='Belum diverifikasi';
 
+                if (isset($undangan)) {
+                    $i = 1;
+                    foreach ($undangan as $isi) {
+
+                        if ($isi['status'] == 2) {
+                            $status = 'Selesai';
+                        } else if ($isi['status'] == 1) {
+                            $status = 'Aktif';
+                        } else {
+                            if ($today > $isi['tanggal']) {
+
+                                $status = '<a class="">Proses</a>';
+                            } else {
+                                $status = 'Belum diverifikasi';
+                            }
                         }
-                        ?>
+
+                        $ceknotulen = ceknotulen($isi['kode_rapat']);
+                        if ($ceknotulen == true) {
+                            $notulen = "<button class='btn btn-sm btn-secondary'> Sudah ada Notulen</button>";
+                        } else {
+
+                            $notulen = "<a href='Notulen/" . $isi['id'] . "'><button
+                            class='button btn btn-sm btn-primary'>Notulen</button></a>";
+                        }
+                ?>
 
                 <tr>
-                    <td for="nomor" nmr='<?= $isi['nomor']?>'><?= $i?></td>
-                    <td for="perihal"><?= $isi['perihal']?></td>
-                    <td for='tgl'><?= $isi['tanggal']?></td>
-                    <td for='tgl'><?= $isi['mulai']?></td>
-                    <td for='tgl'><?= $isi['sampai']?></td>
+                    <td for="nomor" nmr='<?= $isi['kode_rapat'] ?>' sts='<?= $isi['status'] ?>'><a
+                            onclick="getStatusRapat($(this))"><i class="bi bi-send"></i></a></td>
+                    <td for="perihal"><?= $isi['nama_rapat'] ?></td>
+                    <td for='tgl'><?= $isi['tanggal'] ?></td>
+                    <td for='tgl'><?= $isi['mulai'] ?></td>
+                    <td for='tgl'><?= $isi['sampai'] ?></td>
                     <td for='status'><?= $status ?></td>
-                    <td><a class='btn btn-sm btn-secondary text-decoration-none text-white' href='detailrapat'><i
-                                class="bi bi-eye"></i> Peserta</a></td>
+                    <td for='tgl'><?= $notulen ?></a></td>
+                    <td><a class='btn btn-sm btn-secondary text-decoration-none text-white'
+                            href='detailrapat/<?= $isi['id'] ?>'><i class="bi bi-eye"></i> Peserta</a></td>
 
                 </tr>
                 <?php
-                    $i++;
+                        $i++;
                     }
                 }
                 ?>
@@ -70,170 +86,133 @@ include "header.php";
             </tbody>
         </table>
     </div>
-</div>
-<!-- modal add user -->
-<div class="modal fade" id="modalTambahRapat" tabindex="-1" role="dialog" aria-labelledby="modalManajemenUserLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="d-flex justify-content-center w-100">
-                    <h5 class="modal-title" id="modalEditUserLabel">Edit User</h5>
+    <!-- modal tambah rapat -->
+    <div class="modal fade" id="modelEditStatusRapat" tabindex="-1" role="dialog"
+        aria-labelledby="modalEditStatusRapatLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex justify-content-center w-100">
+                        <h5 class="modal-title" id="modalEditStatusRapattLabel">Staus Rapat</h5>
+                    </div>
+                    <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row col-12">
-                    <div class="col-12 row mb-3">
-                        <label for="staticEmail" class="col-sm-4 col-form-label">Jenis Rapat</label>
-                        <div class="col-sm-8">
-                            <select class="form-select" name="" id="Level">
-                                <option value="">Pilih Level</option>
-                                <option value="">Rapat Terbuka</option>
-                                <option value="">Rapat Tertutup</option>
-                                <option value="">Rapat Biasa</option>
-                                <option value="">Rapat Lain-lain</option>
-                            </select>
+                <form action="" id='form-editStatus'>
+                    <div class="modal-body">
+                        <div class="row col-12">
+                            <label for="jenisrapat" class="col-form-label">Kode Rapat</label>
+                            <input type="hidden" name="nomor" id='nomor'>
+                            <input type="text" class="form-control" name='dnomor' id="dnomor" disabled=true>
+                        </div>
+                        <div class="row col-12">
+                            <label for="jenisrapat" class="col-form-label">Nama Rapat</label>
+                            <input type="text" class="form-control" name='nama' id="nama" disabled=true>
+                        </div>
+                        <div class="row col-10 m-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="0" name='eStatus' id="1" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Proses
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="2" name='eStatus' id="0">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Selesai
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div div class="col-12 row mb-3">
-                        <label for="inputNama" class="col-sm-4 col-form-label">Kode Rapat</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="inputNama">
-                        </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button onclick='editStatus()' type="button" class="btn btn-primary">Simpan Data</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                     </div>
-
-                    <div class="col-12 row px-4 mb-2">
-                        <div class="row col-4 mx-1">
-                            <label for="" class="col-3 col-form-label">Tanggal</label>
-                            <input type="date" class='form-control-sm' name="tgl" id="">
-                        </div>
-                        <div class="row col-3 mx-1">
-                            <label for="" class="col-3 col-form-label">Mulai</label>
-                            <input type="time" class='form-control-sm' name="mulai" id="">
-                        </div>
-                        <div class="row col-3 mx-1">
-                            <label for="" class="col-3 col-form-label">Sampai</label>
-                            <input type="time" class='form-control-sm' name="sampai" id="">
-                        </div>
-                    </div>
-                    <div div class="col-12 row mb-2">
-                        <label for="inputNama" class="col-sm-4 col-form-label">Nama Rapat</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="namarapat">
-                        </div>
-                    </div>
-                    <div div class="col-12 row mb-2">
-                        <label for="inputNama" class="col-sm-4 col-form-label">Pengisi Rapat</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="inputNama">
-                        </div>
-                    </div>
-                    <div div class="col-12 row mb-2">
-                        <label for="inputNama" class="col-sm-4 col-form-label">Tema Rapat</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="inputNama">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-primary">Simpan Data</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-</div>
-<!-- end-model edit user-->
-<!-- modal add user -->
-<div class="modal fade" id="modalManajemenUser" tabindex="-1" role="dialog" aria-labelledby="modalManajemenUserLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="d-flex justify-content-center w-100">
-                    <h5 class="modal-title" id="modalManajemenUserLabel">Manajemen User</h5>
-                </div>
-                <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row col-12">
-                    <div class="col-6 row">
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Level</label>
-                            <div class="col-sm-8">
-                                <select class="form-select" name="" id="Level">
-                                    <option value="">Pilih Level</option>
-                                    <option value="">Admin</option>
-                                    <option value="">Kelapa</option>
-                                    <option value="">Kasubag</option>
-                                    <option value="">User</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-4 col-form-label">Alamat Email</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="Email" value="">
-                            </div>
-                        </div>
+<?php
 
-                    </div>
-                    <div class="col-6 row">
-                        <label for="inputNama" class="col-sm-4 col-form-label">Nama</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="inputNama">
-                        </div>
-                    </div>
-                </div>
+function ceknotulen($id)
+{
+    $db      = \Config\Database::connect();
+    $builder = $db->table('tb_notulen');
+    $builder->selectCount('id')->where('nomor', $id);
+    $julmahdata = $builder->get()->getRow();
+    if ($julmahdata->id > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-                <div class="row col-12">
-                    <div class="row col-6">
-                        <div class="mb-3 row">
-                            <label for="inputPassword1" class="col-sm-4 col-form-label">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row col-6">
-                        <div class="mb-3 row">
-                            <label for="inputPassword1" class="col-sm-6 col-form-label">Ulang Password</label>
-                            <div class="col-sm-6">
-                                <input type="password" class="form-control" id="inputPassword2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary">Simpan Data</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end-model add user-->
+?>
 
 
-    <?php
+<?php
 include "footer.php";
 ?>
 
-    <script src="jquery/dist/jquery-3.5.1.js"></script>
-    <script src="bs/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
-    <script src="jquery/dist/jquery.dataTables.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> -->
+<script src="jquery/dist/jquery-3.5.1.js"></script>
+<script src="bs/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
+<script src="jquery/dist/jquery.dataTables.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> -->
 
 
-    <script type="text/javascript">
-    $(document).ready(function() {
+<script type="text/javascript">
+$(document).ready(function() {
 
-        $('#tableuser').DataTable();
-        // $('#exampleModal').modal('show');
-    });
-    </script>
+    $('#tableuser').DataTable();
+    // $('#exampleModal').modal('show');
+});
+
+function getStatusRapat(ini) {
+
+    nomor = ini.parent().attr('nmr');
+    status = ini.parent().attr('sts');
+    nama = ini.parent().parent().find('td[for=perihal]').html();
+
+    statusproses = document.getElementById('1');
+    statusselesai = document.getElementById('0');
+    if (status == 0) {
+        statusproses.checked = true;
+        statusselesai.checked = false;
+    } else {
+        statusproses.checked = false;
+        statusselesai.checked = true;
+    }
+
+    $('#dnomor').val(nomor)
+    $('#nomor').val(nomor)
+    $('#nama').val(nama)
+    $('#modelEditStatusRapat').modal('show');
+}
+
+function editStatus() {
+    url = "<?php echo base_url('Datarapat/editstatus') ?>"
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: $('#form-editStatus').serialize(),
+        dataType: "JSON",
+        success: function(data) {
+            if (data['status'] == true) {
+                document.getElementById("form-editStatus").reset();
+                $('#modelEditStatusRapat').modal('hide')
+
+                $('#message').html('Status Rapat Berhasil diedit')
+                $('.modal-notif').modal('show')
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $('#message').html('Tamabah Jenis Rapat Gagal')
+            $('.modal-notif').modal('show')
+        }
+
+    })
+}
+</script>

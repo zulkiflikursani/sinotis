@@ -45,11 +45,15 @@ $routes->get('/tambahrapat', 'UndanganRapat::tambahrapat');
 $routes->get('/editrapat/(:any)', 'UndanganRapat::editrapat/$1');
 $routes->get('/Datarapat', 'Datarapat::index');
 $routes->get('/detailrapat', 'Datarapat::detailrapat');
+$routes->get('/detailrapat/(:any)', 'Datarapat::detailrapat/$1');
 $routes->get('/Chatroom', 'ChatRoom::index');
 $routes->get('/chatroom/(:any)', 'ChatRoom::privatechat/$1');
+$routes->post('/Datarapat/editstatus', 'Datarapat::editStatus');
+
 $routes->post('/chatroom/getchat', 'ChatRoom::getchat');
 $routes->post('/chatroom/addchat', 'ChatRoom::addchat');
 $routes->post('/notification', 'Notification::index');
+$routes->post('/Notulen/addnotulen', 'Notulen::addnotulen');
 $routes->get('/Main', 'Main::index');
 $routes->cli('server/index', 'Server::index');
 // $routes->get('/server', 'Server::index');
@@ -60,6 +64,15 @@ $routes->post('/Manajemenuser/udpateUser', 'ManajemenUser::udpateUser');
 $routes->post('/Ruangrapat/addRapat', 'Ruangrapat::addRapat');
 $routes->post('/Ruangrapat/editRapat', 'Ruangrapat::editRapat');
 $routes->post('/UndanganRapat/addUndangan', 'UndanganRapat::addUndangan');
+$routes->post('/UndanganRapat/updateUndangan', 'UndanganRapat::updateundangan');
+$routes->get('/Notulen', 'Notulen::index');
+$routes->get('/Validasinotulen', 'Notulen::validasinotulen');
+$routes->get('/Notulen/(:any)', 'Notulen::index/$1');
+$routes->post('/Notification/refreshnotif', 'Notification::refreshnotif');
+$routes->get('/Notification/removestatus', 'Notification::removestatus');
+$routes->get('/outputnotulen', 'Notulen::outputnotulen');
+$routes->get('/outputdaftarhadir', 'Notulen::outputdaftarhadir');
+$routes->post('/validasinotulen', 'Notulen::validasi');
 $routes->get('/Logout', 'Main::logout');
 
 /*

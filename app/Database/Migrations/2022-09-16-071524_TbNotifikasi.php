@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class TbDataRapat extends Migration
+class TbNotifikasi extends Migration
 {
     public function up()
     {
@@ -15,53 +15,41 @@ class TbDataRapat extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'kode_rapat' => [
+            'user_id' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
-            'tanggal' => [
-                'type' => 'datetime'
-
-            ],
-            'nama_rapat' => [
+            'sender' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
-            ],
-            'pengisi_rapat' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ],
-            'tema_rapat' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ],
-            'mulai' => [
-                'type' => 'time',
-
-            ],
-            'sampai' => [
-                'type' => 'time',
 
             ],
             'status' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
-
+            ],
+            'categori' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'message' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
             ],
             'update_at  DATETIME DEFAULT CURRENT_TIMESTAMP'
 
 
 
         ]);
+        // $this->forge->addKey('id', TRUE);
         $this->forge->addKey('id', TRUE);
-        $this->forge->addKey('kode_rapat', TRUE);
 
         //membuat table
-        $this->forge->createTable('tb_data_rapat', TRUE);
+        $this->forge->createTable('tb_notifikasi', TRUE);
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_data_rapat', TRUE);
+        $this->forge->dropTable('tb_notifikasi', TRUE);
     }
 }

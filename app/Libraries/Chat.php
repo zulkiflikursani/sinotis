@@ -1,24 +1,28 @@
-<?php 
+<?php
 
 namespace App\Libraries;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use App\Models\ConnectionsModel;
 use App\Models\UserModel;
 
-class Chat implements MessageComponentInterface {
+class Chat implements MessageComponentInterface
+{
     protected $clients;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->clients = new \SplObjectStorage;
     }
 
-    public function onOpen(ConnectionInterface $conn) {
+    public function onOpen(ConnectionInterface $conn)
+    {
         // Store the new connection to send messages to later
 
         // ws://localhost:8080/?access_token=12312313
         $uriQuery = $conn->httpRequest->getUri()->getQuery(); //access_token=12312313
-        $uriQueryArr = explode('=',$uriQuery); //$uriQueryArr[1]
+        $uriQueryArr = explode('=', $uriQuery); //$uriQueryArr[1]
         $userModel = new UserModel();
         $conModel = new ConnectionsModel();
 
@@ -28,9 +32,9 @@ class Chat implements MessageComponentInterface {
 
         $conModel->where('c_user_id', $user['id'])->delete();
         $conData = [
-                'c_user_id' => $user['id'],
-                'c_resource_id' => $conn->resourceId,
-                'c_name' => $user['nama_lengkap']
+            'c_user_id' => $user['id'],
+            'c_resource_id' => $conn->resourceId,
+            'c_name' => $user['nama_lengkap']
         ];
 
         $conModel->save($conData);
@@ -46,53 +50,74 @@ class Chat implements MessageComponentInterface {
         echo "New connection! ({$conn->resourceId})\n";
     }
 
-    public function onMessage(ConnectionInterface $from, $msg) {
+    public function onMessage(ConnectionInterface $from, $msg)
+    {
         $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+        echo sprintf(
+            'Connection %d sending message "%s" to %d other connection%s' . "\n",
+            $from->resourceId,
+            $msg,
+            $numRecv,
+            $numRecv == 1 ? '' : 's'
+        );
 
-        $data1 = json_decode($msg,true);
+        $data1 = json_decode($msg, true);
 
-        if($data1['status']== 'private'){
+        if ($data1['status'] == 'private') {
             foreach ($this->clients as $client) {
                 if ($from !== $client) {
 
                     $data = [
                         'message' => $data1['msg'],
-                        'send_to'=> $data1['send_to'],
-                        'sender'=> $from->user['id'],
+                        'send_to' => $data1['send_to'],
+                        'sender' => $from->user['id'],
                         'author' => $from->user['nama_lengkap'],
                         'time' => date('H:i'),
-                        'status'=>'private'
+                        'status' => 'private'
                     ];
-                   
-                        $client->send(json_encode($data));
-                   
-                    
+
+                    $client->send(json_encode($data));
+
+
                     // The sender is not the receiver, send to each client connected
-                
+
 
                 }
             }
-        }else{
+        } else if ($data1['status'] == 'public') {
             foreach ($this->clients as $client) {
                 if ($from !== $client) {
 
                     $data = [
-                        'message' =>$data1['msg'],
+                        'message' => $data1['msg'],
                         'author' => $from->user['user_name'],
                         'time' => date('H:i'),
-                        'status'=>'public'
+                        'status' => 'public'
                     ];
                     // The sender is not the receiver, send to each client connected
                     $client->send(json_encode($data));
+                }
+            }
+        } else if ($data1['status'] == 'notif') {
+            foreach ($this->clients as $client) {
+                if ($from !== $client) {
 
+                    $data = [
+                        'message' => $data1['msg'],
+                        'send_to' => $data1['send_to'],
+                        'author' => $from->user['user_name'],
+                        'time' => date('H:i'),
+                        'status' => 'notif'
+                    ];
+                    // The sender is not the receiver, send to each client connected
+                    $client->send(json_encode($data));
                 }
             }
         }
     }
 
-    public function onClose(ConnectionInterface $conn) {
+    public function onClose(ConnectionInterface $conn)
+    {
         // The connection is closed, remove it, as we can no longer send it messages
         $this->clients->detach($conn);
 
@@ -107,7 +132,8 @@ class Chat implements MessageComponentInterface {
         echo "Connection {$conn->resourceId} has disconnected\n";
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Exception $e)
+    {
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();

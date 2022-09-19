@@ -13,21 +13,21 @@ include "header.php";
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
-    <title>Ci4 WebSocket Chat</title>
+    <!-- <title>Private Chat</title> -->
 
 </head>
 
 <body>
     <?php
-      $uri = service('uri');
-     ?>
+    $uri = service('uri');
+    ?>
     <!-- end header -->
 
     <div class="container">
         <div class="row">
             <div class="col-12 mt-5 pt-3 pb-3 bg-white from-wrapper">
                 <div class="container">
-                    <h3>Chat</h3>
+                    <h3>Private Chat</h3>
                     <hr>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
@@ -56,10 +56,10 @@ include "header.php";
 
 
     <?php
-include "footer.php";
-?>
-
+    include "footer.php";
+    ?>
     <script src="../jquery/dist/jquery-3.5.1.js"></script>
+
     <script src="../bs/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
     <script src="../jquery/dist/jquery.dataTables.min.js"></script>
     <script>
@@ -76,7 +76,7 @@ include "footer.php";
 
     function getChat() {
         var data = {
-            send_to: <?= $chat_to?>,
+            send_to: <?= $chat_to ?>,
             sender: <?= session()->get('id') ?>
         }
         url = "<?php echo base_url('chatroom/getchat') ?>"
@@ -90,7 +90,7 @@ include "footer.php";
                 $.each(data, function(a, b) {
                     var msg = {
                         message: b['message'],
-                        author: "<?= $getAuthor?> ",
+                        author: "<?= $getAuthor ?> ",
                         time: b['time']
                     }
                     if (b['sender'] == '<?= session()->get('id') ?>') {
@@ -143,7 +143,7 @@ include "footer.php";
 
                 if (data.status == 'private') {
                     if (data.send_to == '<?= session()->get('id') ?>' && data.sender == '<?= $chat_to ?>') {
-                        showNotification(data.author, data.message, "chatroom/" + "<?= $chat_to?>");
+                        // showNotification(data.author, data.message, "chatroom/" + "<?= $chat_to ?>");
                         newMessage(data)
                     }
                 }
@@ -198,7 +198,8 @@ include "footer.php";
 
         html = `<div class="col-8 msg-item left-msg">
                     <div class="msg-img">
-                      <img class="img-thumbnail rounded-circle" src="/assets/img/` + imgs[msg.author] + `">
+                    <img class="img-thumbnail rounded-circle" src="/img/logo-user-chat.png">
+
                     </div>
                     <div class="msg-text">
                       <span class="author">` + msg.author + `</span> <span class="time">` + msg.time + `</span><br>
@@ -218,8 +219,8 @@ include "footer.php";
         var hour = date.getHours();
         var time = hour + ':' + minutes
         html = `<div class="col-8 msg-item right-msg offset-4">
-                    <div class="msg-img">
-                      <img class="img-thumbnail rounded-circle" src="/assets/img/` + imgs[name] + `">
+                    <div class="msg-img">         
+                        <img class="img-thumbnail rounded-circle" src="/img/logo-user-chat.png">
                     </div>
                     <div class="msg-text">
                       <span class="author">Me</span> <span class="time">` + time + `</span><br>
@@ -239,7 +240,7 @@ include "footer.php";
         var time = hour + ':' + minutes
         html = `<div class="col-8 msg-item right-msg offset-4">
                     <div class="msg-img">
-                      <img class="img-thumbnail rounded-circle" src="/assets/img/` + imgs[name] + `">
+                        <img class="img-thumbnail rounded-circle" src="/img/logo-user-chat.png">
                     </div>
                     <div class="msg-text">
                       <span class="author">Me</span> <span class="time">` + msg.time + `</span><br>
@@ -258,12 +259,12 @@ include "footer.php";
         for (let index = 0; index < users.length; index++) {
             if (myId != users[index].c_user_id) {
                 active = ''
-                if (users[index].c_user_id == <?= $chat_to?>) {
+                if (users[index].c_user_id == <?= $chat_to ?>) {
                     active = 'active'
                 } else {
                     active = ''
                 }
-                html += '<a href="<?= base_url()."/chatroom/"?>' + users[index].c_user_id +
+                html += '<a href="<?= base_url() . "/chatroom/" ?>' + users[index].c_user_id +
                     '"><li class="list-group-item ' + active + '">' + users[index].c_name + '</li></a>'
             }
         }

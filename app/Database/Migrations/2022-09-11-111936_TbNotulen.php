@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class TbUndangan extends Migration
+class TbNotulen extends Migration
 {
     public function up()
     {
@@ -19,15 +19,16 @@ class TbUndangan extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
-            'klasifikasi' => [
+            'penulis' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+
+            ],
+            'jabatan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
-            'lampiran' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ],
-            'perihal' => [
+            'devisi' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
@@ -35,38 +36,11 @@ class TbUndangan extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ],
-            'kepada' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
+            'hasil' => [
+                'type' => 'TEXT',
+                'null' => true
             ],
-            'ruangan' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ],
-            'pakaian' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100'
-            ],
-            'isi' => [
-                'type' => 'VARCHAR',
-                'constraint' => '10000'
-            ],
-            'namafile' => [
-                'type' => 'VARCHAR',
-                'constraint' => '10000'
-            ],
-            'tanggal' => [
-                'type' => 'date',
 
-            ],
-            'mulai' => [
-                'type' => 'time',
-
-            ],
-            'sampai' => [
-                'type' => 'time',
-
-            ],
             'status' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100'
@@ -81,11 +55,11 @@ class TbUndangan extends Migration
         $this->forge->addKey('nomor', TRUE);
 
         //membuat table
-        $this->forge->createTable('tb_undangan', TRUE);
+        $this->forge->createTable('tb_notulen', TRUE);
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_undangan', TRUE);
+        $this->forge->dropTable('tb_notulen', TRUE);
     }
 }

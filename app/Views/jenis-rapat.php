@@ -21,26 +21,26 @@ include "header.php";
             </thead>
             <tbody>
                 <?php
-foreach ($jenisRapat as $data) {
-    if ($data['status'] == '1') {
-        $status = "Aktif";
-    } else {
-        $status = "Tidak Aktif";
-    }
-    ?>
+                foreach ($jenisRapat as $data) {
+                    if ($data['status'] == '1') {
+                        $status = "Aktif";
+                    } else {
+                        $status = "Tidak Aktif";
+                    }
+                ?>
                 <tr>
-                    <td for='id'><?=$data['id']?></td>
-                    <td for='jenisRapat'><?=$data['jenis_rapat']?></td>
-                    <td for='status' sts='<?=$data['status']?>'><?=$status?></td>
-                    <td><?=$data['update_at']?></td>
+                    <td for='id'><?= $data['id'] ?></td>
+                    <td for='jenisRapat'><?= $data['jenis_rapat'] ?></td>
+                    <td for='status' sts='<?= $data['status'] ?>'><?= $status ?></td>
+                    <td><?= $data['update_at'] ?></td>
                     <td><a class='btn btn-sm btn-secondary' onclick="getThis($(this))" data-bs-toggle="modal"
                             data-bs-target="#modalEditRapat"><i class="bi bi-pencil"></i> Edit </a></td>
 
                 </tr>
 
                 <?php
-}
-?>
+                }
+                ?>
 
             </tbody>
         </table>
