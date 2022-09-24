@@ -80,12 +80,13 @@ foreach ($detailrapat as $a) {
                     foreach ($detailrapat as $a) {
                     ?>
                     <tr>
-                        <td><?= $i ?></td>
+                        <td for='id' dataid='<?= $a->idpeserta ?>'><?= $i ?></td>
                         <td><?= $a->peserta ?></td>
                         <td><?= $a->nohp ?></td>
                         <td><?= $a->pangkat ?></td>
                         <td><?= $a->status ?></td>
-                        <td><a class='btn btn-sm btn-secondary'>Batal</a></td>
+                        <td><a class='btn btn-sm btn-secondary' onclick="removethis(<?= $a->idpeserta ?>)">Batal</a>
+                        </td>
 
                     </tr>
                     <?php
@@ -189,6 +190,38 @@ $(document).ready(function() {
 
     $(' #tableuser').DataTable();
 }) // $('#exampleModal').modal('show'); });
+function removethis(idx) {
+    url = "<?php echo base_url('Datarapat/removepeserta') ?>"
+    // var formData = new FormData($("#form-notulen")[0]);
+    // console.log(formData);
+    var dataform = {
+        userid: idx
+    }
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: dataform,
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data);
+            if (data['status'] == true) {
+                // document.getElementById("form-notulen").reset();
+                $('#message').html('Berhasil Menghapus Peserta')
+                $('.modal-notif').modal('show')
+            } else {
+                $('#message').html('Gagal Menghapus Peserta ' + data['message'])
+                $('.modal-notif').modal('show')
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR)
+            $('#message').html('Gagal Menghapus Peserta' + jqXHR.responseText)
+            $('.modal-notif').modal('show')
+
+        }
+
+    })
+}
 
 function downloaddaftarhadir() {
     url = "<?php echo base_url('outputdaftarhadir') ?>"

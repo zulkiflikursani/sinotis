@@ -117,7 +117,7 @@
                     </ul>
                 </div>
                 <div class="logo">
-                    <p> Admin</p>
+                    <p> <?= session()->get('username') ?></p>
                 </div>
 
             </li>

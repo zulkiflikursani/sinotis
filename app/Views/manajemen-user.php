@@ -143,22 +143,28 @@ include "header.php";
                 <form action="" id='form-addUser'>
                     <div class="row col-12">
                         <div class="col-6 row">
-                            <div class="mb-3 row">
+                            <div class="mb-2 row">
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Level</label>
                                 <div class="col-sm-8">
                                     <select class="form-select" name="level" id="Level">
                                         <option value="">Pilih Level</option>
                                         <option value="1">Admin</option>
-                                        <option value="2">Kelapa</option>
+                                        <option value="2">Kepala</option>
                                         <option value="3">Kasubag</option>
                                         <option value="4">User</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-2 row">
                                 <label for="staticEmail" class="col-sm-4 col-form-label">Alamat Email</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="Email" name="email">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputNama" class="col-sm-4 col-form-label">NIP</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="username" name='nip'>
                                 </div>
                             </div>
 
@@ -169,9 +175,24 @@ include "header.php";
                                 <input type="text" class="form-control" id="username" name='username'>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row col-12">
+                        <div class="col-6 row">
+                            <div class="mb-3 row">
+                                <label for="inputNama" class="col-sm-4 col-form-label">Nama Lengkap</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="username" name='namelengkap'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 row">
+                            <label for="inputNama" class="col-sm-4 col-form-label">Pangkat</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="username" name='pangkat'>
+                            </div>
+                        </div>
                         <div class="row col-6">
                             <div class="mb-3 row">
                                 <label for="inputPassword1" class="col-sm-4 col-form-label">Password</label>

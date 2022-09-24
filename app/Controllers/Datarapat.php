@@ -30,7 +30,7 @@ class Datarapat extends BaseController
         // return view('modal-contoh',$data);
 
         $db      = \Config\Database::connect();
-        $getDataRapat = $db->query("SELECT tb_data_rapat.id, a.tanggal, tb_data_rapat.kode_rapat, tb_data_rapat.nama_rapat, a.nip, a.kepada AS peserta, a.ruangan, tb_data_rapat.mulai, tb_data_rapat.sampai, a.pangkat, '' AS nohp, a.status, tb_notulen.nip as nip_notulen, tb_notulen.penulis as nama_notulen, tb_notulen.id as id_notulen FROM tb_data_rapat LEFT JOIN( SELECT tb_undangan.*, tb_user.user_name, tb_user.nama_lengkap, tb_user.pangkat, tb_user.email, tb_user.status AS status_user, tb_user.level FROM tb_undangan LEFT JOIN tb_user ON tb_undangan.nip = tb_user.nip ) a ON tb_data_rapat.kode_rapat = a.nomor LEFT JOIN tb_notulen on tb_data_rapat.kode_rapat = tb_notulen.nomor WHERE tb_data_rapat.id ='$id'");
+        $getDataRapat = $db->query("SELECT tb_data_rapat.id, a.tanggal, a.id as idpeserta, tb_data_rapat.kode_rapat, tb_data_rapat.nama_rapat, a.nip, a.kepada AS peserta, a.ruangan, tb_data_rapat.mulai, tb_data_rapat.sampai, a.pangkat, '' AS nohp, a.status, tb_notulen.nip as nip_notulen, tb_notulen.penulis as nama_notulen, tb_notulen.id as id_notulen FROM tb_data_rapat LEFT JOIN( SELECT tb_undangan.*, tb_user.user_name, tb_user.nama_lengkap, tb_user.pangkat, tb_user.email, tb_user.status AS status_user, tb_user.level FROM tb_undangan LEFT JOIN tb_user ON tb_undangan.nip = tb_user.nip ) a ON tb_data_rapat.kode_rapat = a.nomor LEFT JOIN tb_notulen on tb_data_rapat.kode_rapat = tb_notulen.nomor WHERE tb_data_rapat.id ='$id'");
         if ($getDataRapat->getResult() != null) {
             $datarapat = $getDataRapat->getResult();
         } else {
@@ -47,6 +47,22 @@ class Datarapat extends BaseController
         return view('detail-rapat', $data);
     }
 
+    public function removepeserta()
+    {
+        $userid = $this->db->escapeString($this->request->getPost('userid'));
+        $modeUndangan = new \App\Models\UndanganModel();
+        try {
+            $deletepeserta = $modeUndangan->delete($userid);
+            if ($deletepeserta) {
+                echo json_encode(array("status" => TRUE, 'message' => 'success'));
+            } else {
+                echo json_encode(array("status" => FALSE, 'message' => 'gagal'));
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            echo json_encode(array("status" => FALSE, 'message' => $th->getMessage()));
+        }
+    }
     public function editStatus()
     {
         $nomor = $this->db->escapeString($this->request->getPost('nomor'));
